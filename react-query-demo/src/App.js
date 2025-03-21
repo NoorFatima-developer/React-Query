@@ -4,6 +4,7 @@ import './App.css';
 import RQSuperherosPage from './components/RQSuperHeros.page';
 import HomePage from './components/Home.page';
 import SuperHerosPage from './components/SuperHeros.page';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+    <ReactQueryDevtools initialIsOpen={false} position='bottom-right' /> 
     </QueryClientProvider>
   );
 }

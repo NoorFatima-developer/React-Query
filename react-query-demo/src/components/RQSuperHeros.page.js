@@ -7,12 +7,16 @@ export default function RQSuperHeroesPage() {
   // It takes two arguments.. one is key and other which return a promise...
   // {isLoading, data} =>React Query ka response object
   //useQuery is a ReactHook..., and key 'super-heroes is a cache..
-  const {isLoading, data, isError, error} = 
+  const {isLoading, data, isError, error, isFetching} = 
   useQuery({
     queryKey: ['super-heroes'], // Key array format me hamesha rakhni hai
-    queryFn: () => axios.get('http://localhost:4000/superheroes')
-  });
+    queryFn: () => axios.get('http://localhost:4000/superheroes'),
+    cacheTime: 5000,  // 5 sec tak data memory me rahega
+    staleTime: 30000, // 3 sec tak data fresh maana jayega
+  });  
 
+  // defalut stale time is 0...
+  // default cache time is 5minutes..
 
   // aghr mai map mai data.map likhna chahti o tu data me yehi manually return b krwa skti o
   // const { isLoading, data } = useQuery({
@@ -24,7 +28,8 @@ export default function RQSuperHeroesPage() {
   // });
   
 
-  console.log(data); // API ka pura response console me dikhega
+  // console.log(data); // API ka pura response console me dikhega
+  console.log({isLoading, isFetching});
 
   if(isLoading){
     return <h2>Loading...</h2>
