@@ -5,17 +5,26 @@ import axios from 'axios';
 export default function SuperHerosPage() {
 
     const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState('');
 
     useEffect(()=> {
         axios.get("http://localhost:4000/superheroes").then((res)=> {
             setData(res.data);
             setIsLoading(false)
-        })
-    }, [])
+        }).catch(error => {
+            setError(error.message);
+            setIsLoading(false);
+        });
+    }, []);
 
     if(isLoading) {
         return <h2>Loading...</h2>;
+    }
+
+    // useState mai error use kea ye wo error ab dyga aghr error hoa tu...
+    if(error) {
+        return <h2>{error}</h2>
     }
 
     return(
