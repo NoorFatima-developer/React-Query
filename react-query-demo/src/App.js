@@ -6,6 +6,8 @@ import HomePage from './components/Home.page';
 import SuperHerosPage from './components/SuperHeros.page';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RQSuperHeroPage } from './components/RQSuperHero.page';
+import { ParallelQueriesPage } from './components/ParallelQueries.page';
+import { DynamicParallelPage } from './components/DynamicParallel.page';
 
 function App() {
 
@@ -34,6 +36,8 @@ function App() {
           <Route path="/super-heros" element={<SuperHerosPage />} />
           <Route path="/rq-super-heros" element={<RQSuperherosPage />} />
           <Route path="/rq-super-heros/:heroId" element={<RQSuperHeroPage />} />
+          <Route path="/rq-parallel" element={<ParallelQueriesPage />} />
+          <Route path="/rq-dynamic-parallel" element={<DynamicParallelPage heroIds={[1, 3]} />} />
         </Routes>
       </div>
     </Router>
