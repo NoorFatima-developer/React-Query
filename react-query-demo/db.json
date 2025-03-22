@@ -3,17 +3,17 @@
         {
             "id": 1,
             "name": "Batman",
-            "alterego": "Bruce Wayne"
+            "alterEgo": "Bruce Wayne"
         },
         {
             "id": 2,
             "name": "Superman",
-            "alterego": "Clark Kent"
+            "alterEgo": "Clark Kent"
         },
         {
             "id": 3,
             "name": "Wonder Woman 6",
-            "alterego": "Princess Diana"
+            "alterEgo": "Princess Diana"
         }
     ]
 }

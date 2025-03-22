@@ -10,10 +10,10 @@ export const  useSuperHeroesData = (onSuccess, onError) => {
     // enable islye false kea hai ta k jb hum btn pr click kry tb e show o otherwise disabled e rhy...
     enabled: false,
     // data transformation..
-    select: (data) => {
-      const superheronames = data.data.map((hero)=> hero.name);
-      return superheronames;
-    }
+    // select: (data) => {
+    //   const superheronames = data.data.map((hero)=> hero.name);
+    //   return superheronames;
+    // }
   });  
 
 }

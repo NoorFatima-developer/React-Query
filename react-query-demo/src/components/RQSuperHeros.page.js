@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useSuperHeroesData } from "../hooks/useSuperHeroesData";
 
 export default function RQSuperHeroesPage() {
@@ -32,17 +33,21 @@ export default function RQSuperHeroesPage() {
       {/* for the action i used refetch.. */}
       <button onClick={()=>{
         console.log("Refetch button clicked..");
-        refetch()}}>Refetch Buuton</button>
+        refetch()}}>Refetch Buton</button>
       {/* data?.data likhne ki zaroorat is liye hai kyunki axios.get() ka response ek object hota hai jisk andr data 1 array hai... */}
-      {/* {data?.data.map((hero)=>{
-        return <div key={hero.name}>{hero.name}</div>
-      })} */}
+      {data?.data.map((hero)=>{
+        return <div key={hero.id}>
+          <Link to={`/rq-super-heros/${hero.id}`}>{hero.name}</Link>
+          </div>
+      })}
+
+
       {/* mai data oper receieve krleti o ta k yahan return na krna pry.. */}
       {/* ab name agye hain or wo string hain so just hero krogi .name ki need ni khudi data ajyega... */}
       {/* mau use Query m select sy data get krlea hai object ka.. ab osmai sy data chye jo k array hai */}
-      {data?.map((hero, index)=>{
+      {/* {data?.map((hero, index)=>{
         return <div key={index}>{hero}</div>
-      })}
+      })} */}
     </>
   )     
 }

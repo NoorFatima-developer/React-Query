@@ -5,6 +5,7 @@ import RQSuperherosPage from './components/RQSuperHeros.page';
 import HomePage from './components/Home.page';
 import SuperHerosPage from './components/SuperHeros.page';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { RQSuperHeroPage } from './components/RQSuperHero.page';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/super-heros" element={<SuperHerosPage />} />
           <Route path="/rq-super-heros" element={<RQSuperherosPage />} />
+          <Route path="/rq-super-heros/:heroId" element={<RQSuperHeroPage />} />
         </Routes>
       </div>
     </Router>
