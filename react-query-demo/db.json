@@ -30,5 +30,19 @@
             "id" : 3,
             "name": "hira"
         }
+    ],
+
+    "users": [
+        {
+            "id": "nf99noorfatima@gmail.com",
+            "channelId": "codevolution"
+        }
+    ],
+
+    "channels": [
+        {
+            "id": "codevolution",
+            "courses": ["react", "vue", "angular"]
+        }
     ]
 }

@@ -6,17 +6,13 @@ const fetchSuperHeros = (heroId) => {
     return axios.get('http://localhost:4000/superheroes')
 }
 
-const fetchfriends = () => {
-    return axios.get('http://localhost:4000/friends')
-}
-
 export const DynamicParallelPage = ({heroIds}) => {
     // Using `useQueries` for multiple superheroes
     const queryResults = useQueries({
-        queries: heroIds.map((id) => {
+        queries:(Array.isArray(heroIds) ? heroIds : []).map((id) => {
             return {
                 queryKey: ['super-heros', id],
-                queryfn: () => fetchSuperHeros(id),
+                queryFn: () => fetchSuperHeros(id),
             }
         })
     }
