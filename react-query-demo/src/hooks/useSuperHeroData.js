@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const fetchSuperHero = (heroId) => {
+  console.log("Hero ID being fetched:", heroId);
   return axios.get(`http://localhost:4000/superheroes/${heroId}`);
 };
 
@@ -12,12 +13,25 @@ const fetchSuperHero = (heroId) => {
 // };
 
 export const useSuperHeroData = (heroId) => {
+  // Initial query data:
+  // using useQueryClient:-->ye cached sy superheros ka data leny klye use kea hai......
+  const queryClient = useQueryClient()
   return useQuery({
     queryKey: ['super-hero', heroId],  //  Must be an array
     queryFn: () => fetchSuperHero(heroId),  //Hero ID queryKey me store ho rahi hai.ReactQuery querykey array ko queryfunc k andr props m bejta hai
     // phr mjy nichy heroId pass krny ki need ni prygi ku k..heroId actually osko params sy mil e ri hai so need 
     // queryFn: fetchSuperHero,  // Yahan sirf function ka naam diya, alag se heroId pass nahi ki
+      initialData: () => {
+        const cachedheros = queryClient.getQueryData('super-heroes');
+        if((cachedheros)) {
+          const hero = cachedheros.find((hero)=> hero.id === parseInt(heroId));
+          return hero ? {data: hero} : undefined;
+        }
+
+        return undefined;
+      }
   });
+
 };
 
 
