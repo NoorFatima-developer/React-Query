@@ -1,45 +1,25 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useSuperHeroesData } from "../hooks/useSuperHeroesData";
 
-// components/RQSuperHeros.page.js
 export default function RQSuperHeroesPage() {
 
-  // It takes two arguments.. one is key and other which return a promise...
-  // {isLoading, data} =>React Query ka response object
-  //useQuery is a ReactHook..., and key 'super-heroes is a cache..
-  const {isLoading, data, isError, error, isFetching, refetch} = 
-  useQuery({
-    queryKey: ['super-heroes'], // Key array format me hamesha rakhni hai
-    queryFn: () => axios.get('http://localhost:4000/superheroes'),
-    enabled: false,
-    // cacheTime: 5000,  // 5 sec tak data memory me rahega
-    // staleTime: 30000, // 3 sec tak data fresh maana jayega
-    // refetchOnMount: true, // Mount hone par API call nahi hogi, lkin aghr cache sy daata delete hoga fer tu hogi e..
-    // refetchOnWindowFocus: 'always', // Refetch hoga, API dubara call karega (chahe cache valid ho ya nahi).
-    // refetchInterval: 5000, // Har 5 second baad API call hogi
-    // refetchIntervalInBackground: true,  // API ko refetch karwata hai, chahe tum window focus karo ya nahi!
-  });  
+  // success and error callbacks...
+  const  onSuccess =  (data) => {
+    console.log('Perform side effect after fetching data...', data);
+  };
+  const  onError =  (error) => {
+    console.log('Perform side effect after fetching data...', error.message);
+  };
 
-  // console.log(data); // API ka pura response console me dikhega
+  const {isLoading, data, isError, error, isFetching, refetch} = useSuperHeroesData(onSuccess, onError)
 
-  // defalut stale time is 0...
-  // default cache time is 5minutes..
-
-  // aghr mai map mai data.map likhna chahti o tu data me yehi manually return b krwa skti o
-  // const { isLoading, data } = useQuery({
-  //   queryKey: ['super-heroes'],
-  //   queryFn: async () => {  // function ko async banaya
-  //     const res = await axios.get('http://localhost:4000/superheroes'); //  API response ka wait kiya
-  //     return res.data; //  Sirf resolved data return ho raha hai
-  //   }
-  // });
+  console.log({
+    isLoading,
+    isFetching,
+  });
 
   if(isLoading || isFetching){
     return <h2>Loading...</h2>
   }
-
-  // console.log({isLoading, isFetching});
-
 
   if (isError) {
     return <h2>Error: {error.message}</h2>;
@@ -49,10 +29,19 @@ export default function RQSuperHeroesPage() {
     <>
       <h2>RQ Super Heroes Page</h2>
       {/* UseQuery on click... */}
-      <button onClick={refetch}>Refetch Buuton</button>
-      {/* data?.data likhne ki zaroorat is liye hai kyunki axios.get() ka response ek object hota hai. */}
-      {data?.data.map((hero)=>{
-        return <div key={hero.id}>{hero.name}</div>
+      {/* for the action i used refetch.. */}
+      <button onClick={()=>{
+        console.log("Refetch button clicked..");
+        refetch()}}>Refetch Buuton</button>
+      {/* data?.data likhne ki zaroorat is liye hai kyunki axios.get() ka response ek object hota hai jisk andr data 1 array hai... */}
+      {/* {data?.data.map((hero)=>{
+        return <div key={hero.name}>{hero.name}</div>
+      })} */}
+      {/* mai data oper receieve krleti o ta k yahan return na krna pry.. */}
+      {/* ab name agye hain or wo string hain so just hero krogi .name ki need ni khudi data ajyega... */}
+      {/* mau use Query m select sy data get krlea hai object ka.. ab osmai sy data chye jo k array hai */}
+      {data?.map((hero, index)=>{
+        return <div key={index}>{hero}</div>
       })}
     </>
   )     
