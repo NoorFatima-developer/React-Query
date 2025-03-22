@@ -14,7 +14,9 @@ const fetchSuperHero = (heroId) => {
 
 export const useSuperHeroData = (heroId) => {
   // Initial query data:
-  // using useQueryClient:-->ye cached sy superheros ka data leny klye use kea hai......
+  // using useQueryClient:-->ye cached sy superheros mai sy single hero ka data leny klye use kea hai......
+  // ku k superheros sary iakthy cache m store hory hain or aghr mjy single hero chahye ut osklye wo dubara api call kryga
+  // ku k wo superheros ko aleda smj rha h islye meny superheros mai sy hero ko b cache m save krdea hao ta k next time wo b cache sy dy...
   const queryClient = useQueryClient()
   return useQuery({
     queryKey: ['super-hero', heroId],  //  Must be an array
