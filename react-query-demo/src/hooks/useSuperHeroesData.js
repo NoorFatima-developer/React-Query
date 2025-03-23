@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { request } from "../utils/axios-utils";
-import { data } from "react-router-dom";
 
 const addSuperHero = (hero) => {
   // return Axios.post('http://localhost:4000/superheroes', hero)  //ye hero k andr as an obj data ara hai jb btn pr click kr rye hain or whi data yahan lek hum backned ko bejry hain or phr get kr ry h...
