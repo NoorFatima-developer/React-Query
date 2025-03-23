@@ -63,7 +63,7 @@ export default function RQSuperHeroesPage() {
       {/* data?.data likhne ki zaroorat is liye hai kyunki axios.get() ka response ek object hota hai jisk andr data 1 array hai... */}
       {data?.data.map((hero)=>{
         return <div key={hero.id}>
-          <Link to={`/rq-super-heros/${hero.id}`}>{hero.name}</Link>
+          <Link to={`/rq-super-heros/${hero.id}`}>{hero.name} {hero.alterEgo}</Link>
           </div>
       })}
 

@@ -26,16 +26,40 @@ export const  useSuperHeroesData = (onSuccess, onError) => {
 export const useAddSuperHeroData = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: addSuperHero, // Use `mutationFn` instead of passing the function directly
-    onSuccess: () => {
-      // Invalidate the 'super-heroes' query to refetch the data
-      queryClient.invalidateQueries(['super-heroes']);    // Purana Cache Delete, API Se Fresh Data Fetch-->nuksan-->1 new api call, effect perforamce..
-      // queryClient.setQueryData(['super-heroes'], (oldData) => {  //Only update local cache..nuksan-->Agar backend me aur bhi naye heroes add ho chuke hain, wo UI me nahi aayenge
-      //   return {
-      //     ...oldData,
-      //     data: [...oldData.data, newHero.data], 
-      // });
-    },
+    mutationFn: addSuperHero, 
+          // invalidateQueries & setQueryData..
+          // onSuccess: () => {
+          // Invalidate the 'super-heroes' query to refetch the data
+          // queryClient.invalidateQueries(['super-heroes']);    // Purana Cache Delete, API Se Fresh Data Fetch-->nuksan-->1 new api call, effect perforamce..
+          // queryClient.setQueryData(['super-heroes'], (oldData) => {  //Only update local cache..nuksan-->Agar backend me aur bhi naye heroes add ho chuke hain, wo UI me nahi aayenge..bs jo add kr ry hain whi ya locally bakei backned sy ni ayegy aghr update hoey hoey tu..
+          //   return {
+          //     ...oldData,
+          //     data: [...oldData.data, newHero.data], //onsuccess k andr newHero pass krogi jis mai wo sucess data lek store kryga..
+          // });
+          // },
+
+          // Here use Optimistic Updates:
+          onMutate: async (newHero) => {
+            await queryClient.cancelQueries('super-heroes')
+            const previousHeroesData = queryClient.getQueryData('super-heroes')
+            queryClient.setQueryData(['super-heroes'], (oldData) => {  
+            return {
+              ...oldData,
+              data: [...oldData.data, 
+                {id: oldData?.data?.length + 1, ...newHero},
+              ], 
+            }
+          })
+          return {
+            previousHeroesData,
+          }
+      },
+          onError: (_error, _hero, context) => {
+            queryClient.setQueryData('super-heros', context.previousHeroesData)
+          },
+          onSettled: () => {
+            queryClient.invalidateQueries('super-heroes')
+          }
   });
 }
 
