@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
+// heros ki list m sy single hero ka data cache kea hoa h iss file mai aleda sy..
 const fetchSuperHero = (heroId) => {
   console.log("Hero ID being fetched:", heroId);
   return axios.get(`http://localhost:4000/superheroes/${heroId}`);

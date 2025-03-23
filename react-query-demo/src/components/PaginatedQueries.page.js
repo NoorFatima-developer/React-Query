@@ -1,40 +1,63 @@
-import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
+  import { useQuery } from "@tanstack/react-query";
+  import axios from "axios";
+  import { useState } from "react";
 
-// fetchColors:=>function
-const fetchColors = () => {
-    return axios.get('http://localhost:4000/colors')
-}
+  // fetchColors:=>function
+  const fetchColors = async(pageNumber) => {
+    const response = await axios.get(`http://localhost:4000/colors?_limit=2&_page=${pageNumber}`);
+    return response.data;
+  };
 
-export const PaginatedQueriesPage = () => {
-    const {isLoading, data, isError, error} = useQuery({
-        queryKey: ['colors'],
-        queryFn: fetchColors,
-    })
+  export const PaginatedQueriesPage = () => {
+    // For pagination , I will use useState...
+    const [pageNumber, setPageNumber] = useState(1); //by-default page number is 1..
 
-    if(isLoading){
-        return <h2>Loading...</h2>
+    const { isLoading, isFetching, data, isError, error } = useQuery({
+      queryKey: ["colors", pageNumber],
+      queryFn: () => fetchColors(pageNumber), // Pass page number inside function
+      keepPreviousData: true,         // For smooth transition between pages
+      staleTime: 0, // Forces refetch on page change
+      refetchOnWindowFocus: false, // Prevents automatic refetching
+    });
+
+    if (isLoading) {
+      return <h2>Loading...</h2>;
     }
 
-    if(isError){
-        return <h2>{error.message}</h2>
+    if (isError) {
+      return <h2>{error.message}</h2>;
     }
 
     return (
-       <>
+      <>
+        <div>
+        {data?.length > 0 ? (
+            data.map((color) => (
+              <div key={color.id}>
+                <h2>{color.id}: {color.label}</h2>
+              </div>
+            ))
+          ) : (
+            <h3>No Colors Found</h3>
+          )}
+        </div>
 
-            <div>
-                {data?.data.map((color)=> {
-                    return(
-                        <div key={color.id}>
-                            <h2>
-                                {color.id}: {color.name}
-                            </h2>
-                        </div>
-                    )
-                })}
-            </div>
+        <div>
+        <button
+            onClick={() => setPageNumber((prev) => (prev - 1))}
+            disabled={pageNumber === 1}
+          >
+            Prev Page
+          </button>
+          <button
+            onClick={() => setPageNumber((prev) => (prev + 1))}
+            disabled={pageNumber === 8}
+          >
+            Next Page
+          </button>
+        </div>
+        {isFetching && 'Loading'}
+      </>
+    );
+  };
 
-       </>
-    )
-}
