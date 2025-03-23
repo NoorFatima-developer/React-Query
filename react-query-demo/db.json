@@ -1,62 +1,103 @@
 {
-    "colors": [
-    { "id": 1, "label": "red" },
-    { "id": 2, "label": "blue" },
-    { "id": 3, "label": "green" },
-    { "id": 4, "label": "yellow" },
-    { "id": 5, "label": "black" },
-    { "id": 6, "label": "white" },
-    { "id": 7, "label": "orange" },
-    { "id": 8, "label": "purple" }
+  "colors": [
+    {
+      "id": "1",
+      "label": "red"
+    },
+    {
+      "id": "2",
+      "label": "blue"
+    },
+    {
+      "id": "3",
+      "label": "green"
+    },
+    {
+      "id": "4",
+      "label": "yellow"
+    },
+    {
+      "id": "5",
+      "label": "black"
+    },
+    {
+      "id": "6",
+      "label": "white"
+    },
+    {
+      "id": "7",
+      "label": "orange"
+    },
+    {
+      "id": "8",
+      "label": "purple"
+    }
   ],
-  
-    "superheroes": [
-        {
-            "id": 1,
-            "name": "Batman",
-            "alterEgo": "Bruce Wayne"
-        },
-        {
-            "id": 2,
-            "name": "Superman",
-            "alterEgo": "Clark Kent"
-        },
-        {
-            "id": 3,
-            "name": "Wonder Woman 6",
-            "alterEgo": "Princess Diana"
-        }
-    ],
-
-    "friends": [
-        {
-            "id" : 1,
-            "name": "noor"
-        },
-        {
-            "id" : 2,
-            "name": "fatima"
-        },
-        {
-            "id" : 3,
-            "name": "hira"
-        }
-    ],
-
-    "users": [
-        {
-            "id": "nf99noorfatima@gmail.com",
-            "channelId": "codevolution"
-        }
-    ],
-
-    "channels": [
-        {
-            "id": "codevolution",
-            "courses": ["react", "vue", "angular"]
-        }
-    ]
-
-   
-      }
-
+  "superheroes": [
+    {
+      "id": "1",
+      "name": "Batman",
+      "alterEgo": "Bruce Wayne"
+    },
+    {
+      "id": "2",
+      "name": "Superman",
+      "alterEgo": "Clark Kent"
+    },
+    {
+      "id": "3",
+      "name": "Wonder Woman 6",
+      "alterEgo": "Princess Diana"
+    },
+    {
+      "id": "8a6f",
+      "name": "ss",
+      "alterEgo": "a"
+    },
+    {
+      "id": "4eb3",
+      "name": "noo",
+      "alterEgo": "fat"
+    },
+    {
+      "id": "04ec",
+      "name": "noo",
+      "alterEgo": "fats"
+    },
+    {
+      "id": "4ca3",
+      "name": "aaaaaaaaaaaaa",
+      "alterEgo": "ss"
+    }
+  ],
+  "friends": [
+    {
+      "id": "1",
+      "name": "noor"
+    },
+    {
+      "id": "2",
+      "name": "fatima"
+    },
+    {
+      "id": "3",
+      "name": "hira"
+    }
+  ],
+  "users": [
+    {
+      "id": "nf99noorfatima@gmail.com",
+      "channelId": "codevolution"
+    }
+  ],
+  "channels": [
+    {
+      "id": "codevolution",
+      "courses": [
+        "react",
+        "vue",
+        "angular"
+      ]
+    }
+  ]
+}

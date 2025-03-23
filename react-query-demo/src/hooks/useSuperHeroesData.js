@@ -1,13 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+
+
+const addSuperHero = (hero) => {
+  return axios.post('http://localhost:4000/superheroes', hero)  //ye hero k andr as an obj data ara hai jb btn pr click kr rye hain or whi data yahan lek hum backned ko bejry hain or phr get kr ry h...
+}
 
 export const  useSuperHeroesData = (onSuccess, onError) => {
    return useQuery({
     queryKey: ['super-heroes'], // Key array format me hamesha rakhni hai
     queryFn: () => axios.get('http://localhost:4000/superheroes'),
+    // enable islye false kea hai ta k jb hum btn pr click kry tb e show o otherwise disabled e rhy...
     onSuccess,
     onError,
-    // enable islye false kea hai ta k jb hum btn pr click kry tb e show o otherwise disabled e rhy...
     enabled: false,
     // data transformation..
     // select: (data) => {
@@ -15,8 +20,29 @@ export const  useSuperHeroesData = (onSuccess, onError) => {
     //   return superheronames;
     // }
   });  
-
 }
+
+
+export const useAddSuperHeroData = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: addSuperHero, // Use `mutationFn` instead of passing the function directly
+    onSuccess: (newHero) => {
+      // Invalidate the 'super-heroes' query to refetch the data
+      // queryClient.invalidateQueries(['super-heroes']);  //sara data api call sy hoga beshk aghr koi caache m b o
+      queryClient.setQueryData(['super-heroes'], (oldData) => {
+        return {
+          ...oldData,
+          data: [...oldData.data, newHero.data], // Add new hero to the existing data, baki data cache sy e ayega bs new wala api call sy..
+        };
+      });
+    },
+  });
+}
+
+// Spread operator (...) ka kaam sirf objects ya arrays ka copy banana hota hai, bina original data ko modify kiye.
+
+
 // How useQuery works...
 
 // useQuery mai chezain kesy work krti hain:
