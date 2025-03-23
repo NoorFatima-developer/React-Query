@@ -61,3 +61,8 @@
     );
   };
 
+// Why use , when and how?
+
+// 🟢 Jab ek specific page pe jana ho (like page 1, 2, 3, etc.), toh paginated query use hoti hai.
+// 🟢 "Next Page" aur "Previous Page" ka concept hota hai.
+// 🟢 Sirf ek page ka data memory me hota hai, pichla page cache se delete ho sakta hai.
