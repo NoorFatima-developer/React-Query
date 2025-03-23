@@ -11,6 +11,7 @@ import { DynamicParallelPage } from './components/DynamicParallel.page';
 import { DependentQueriesPage } from './components/DependentQueries.page';
 import { PaginatedQueriesPage } from './components/PaginatedQueries.page';
 
+
 function App() {
 
   // Make an Instance of queryClient and pass queryclientprovoder as a props..
@@ -42,6 +43,7 @@ function App() {
           <Route path="/rq-dynamic-parallel" element={<DynamicParallelPage heroIds={[1, 3]} />} />
           <Route path="/rq-dependent" element={<DependentQueriesPage email = 'nf99noorfatima@gmail.com'/>} />
           <Route path="/rq-paginated" element={<PaginatedQueriesPage/>}/>
+          <Route path="/rq-infinite" element={<InfiniteQueriesPage/>}/>
         </Routes>
       </div>
     </Router>
