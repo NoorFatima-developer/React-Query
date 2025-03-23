@@ -1,15 +1,17 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-
+import { request } from "../utils/axios-utils";
+import { data } from "react-router-dom";
 
 const addSuperHero = (hero) => {
-  return axios.post('http://localhost:4000/superheroes', hero)  //ye hero k andr as an obj data ara hai jb btn pr click kr rye hain or whi data yahan lek hum backned ko bejry hain or phr get kr ry h...
+  // return Axios.post('http://localhost:4000/superheroes', hero)  //ye hero k andr as an obj data ara hai jb btn pr click kr rye hain or whi data yahan lek hum backned ko bejry hain or phr get kr ry h...
+  return request({ url: '/superheroes', method: 'post', data: hero });
 }
 
 export const  useSuperHeroesData = (onSuccess, onError) => {
    return useQuery({
     queryKey: ['super-heroes'], // Key array format me hamesha rakhni hai
-    queryFn: () => axios.get('http://localhost:4000/superheroes'),
+    // queryFn: () => axios.get('http://localhost:4000/superheroes'),
+    queryFn: () => {return request({url: '/superheroes'})},
     // enable islye false kea hai ta k jb hum btn pr click kry tb e show o otherwise disabled e rhy...
     onSuccess,
     onError,
